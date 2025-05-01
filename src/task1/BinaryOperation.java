@@ -48,5 +48,10 @@ public class BinaryOperation extends Expression {
                 throw new UnsupportedOperationException("Unknown operator: " + (char) op);
         }
     }
+
+    @Override
+    public Expression transform(Transformer tr) {
+        return tr.transformBinaryOperation(this);
+    }
 }
 

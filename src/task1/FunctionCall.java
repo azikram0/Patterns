@@ -33,4 +33,9 @@ public class FunctionCall extends Expression {
             default -> throw new UnsupportedOperationException("Неподдерживаемая функция: " + name);
         };
     }
+
+    @Override
+    public Expression transform(Transformer tr) {
+        return tr.transformFunctionCall(this);
+    }
 }
