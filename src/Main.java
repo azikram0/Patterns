@@ -1,15 +1,25 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import task1.BinaryOperation;
+import task1.FunctionCall;
+import task1.Number;
+import task1.Expression;
+
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        //Пример 1: 1.234 / -1.234
+        Expression e1 = new Number(1.234);
+        Expression e2 = new Number(-1.234);
+        Expression e3 = new BinaryOperation(e1, BinaryOperation.DIV, e2);
+        System.out.println(e3.evaluate());
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        //Пример 2: abs(2 * sqrt(32 - 16))
+        Expression n32 = new Number(32.0);
+        Expression n16 = new Number(16.0);
+        Expression minus = new BinaryOperation(n32, BinaryOperation.MINUS, n16);
+        Expression callSqrt = new FunctionCall("sqrt", minus);
+        Expression n2 = new Number(2.0);
+        Expression mult = new BinaryOperation(n2, BinaryOperation.MUL, callSqrt);
+        Expression callAbs = new FunctionCall("abs", mult);
+        System.out.println(callAbs.evaluate());
     }
 }
