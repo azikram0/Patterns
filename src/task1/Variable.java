@@ -15,4 +15,9 @@ class Variable extends Expression {
     public double evaluate() {
         return 0.0;
     }
+
+    @Override
+    public Expression transform(Transformer tr) {
+        return tr.transformVariable(this);
+    }
 }
