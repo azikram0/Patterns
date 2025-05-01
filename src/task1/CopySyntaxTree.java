@@ -1,5 +1,8 @@
 package task1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CopySyntaxTree implements Transformer {
     @Override
     public Expression transformNumber(Number number) {
@@ -15,11 +18,11 @@ public class CopySyntaxTree implements Transformer {
 
     @Override
     public Expression transformFunctionCall(FunctionCall funcCall) {
-        return null;
+        return new FunctionCall(funcCall.name(), funcCall.arg().transform(this));
     }
 
     @Override
     public Expression transformVariable(Variable variable) {
-        return null;
+        return new Variable(variable.name());
     }
 }
