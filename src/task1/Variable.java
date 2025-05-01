@@ -1,19 +1,25 @@
 package task1;
 
-class Variable extends Expression {
+public class Variable extends Expression {
     private final String name;
+    private final double value;
 
-    public Variable(String name) {
+    public Variable(String name, double value) {
         this.name = name;
+        this.value = value;
     }
 
     public String name() {
         return name;
     }
 
+    public double value() {
+        return value;
+    }
+
     @Override
     public double evaluate() {
-        return 0.0;
+        return value;
     }
 
     @Override
