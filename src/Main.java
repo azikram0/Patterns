@@ -20,20 +20,20 @@ public class Main {
 //        Expression callAbs = new FunctionCall("abs", mult);
 //        System.out.println(callAbs.evaluate());
 
-        // Исходные выражения
+        //Исходные выражения
         Number n32 = new Number(32.0);
-        Number n16 = new Number(10.0);
+        Number n16 = new Number(16.0);
         BinaryOperation minus = new BinaryOperation(n32, BinaryOperation.MINUS, n16);
         FunctionCall callSqrt = new FunctionCall("sqrt", minus);
-        Variable var = new Variable("var", 1.0);
+        Variable var = new Variable("var", 2.0);
         BinaryOperation mult = new BinaryOperation(var, BinaryOperation.MUL, callSqrt);
         FunctionCall callAbs = new FunctionCall("abs", mult);
 
-        // Копирование дерева выражений
+        //Копирование дерева выражений
         CopySyntaxTree CST = new CopySyntaxTree();
         Expression newExpr = callAbs.transform(CST);
 
-        // Пример вычисления нового выражения (если нужно)
+        //Пример вычисления нового выражения
         System.out.println("Результат: " + newExpr.evaluate());
     }
 }
