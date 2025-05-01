@@ -15,4 +15,9 @@ public class Number extends Expression {
     public double evaluate() {
         return value;
     }
+
+    @Override
+    public Expression transform(Transformer tr) {
+        return tr.transformNumber(this);
+    }
 }
