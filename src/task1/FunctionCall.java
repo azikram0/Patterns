@@ -26,7 +26,6 @@ public class FunctionCall extends Expression {
     @Override
     public double evaluate() {
         double value = arg.evaluate();
-
         return switch (name) {
             case "sqrt" -> Math.sqrt(value);
             case "abs" -> Math.abs(value);
