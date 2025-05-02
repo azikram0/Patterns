@@ -35,18 +35,13 @@ public class BinaryOperation extends Expression {
     public double evaluate() {
         double l = left.evaluate();
         double r = right.evaluate();
-        switch (op) {
-            case PLUS:
-                return l + r;
-            case MINUS:
-                return l - r;
-            case DIV:
-                return l / r;
-            case MUL:
-                return l * r;
-            default:
-                throw new UnsupportedOperationException("Неизвестный оператор: " + (char) op);
-        }
+        return switch (op) {
+            case PLUS -> l + r;
+            case MINUS -> l - r;
+            case DIV -> l / r;
+            case MUL -> l * r;
+            default -> throw new UnsupportedOperationException("Неизвестный оператор: " + (char) op);
+        };
     }
 
     @Override
