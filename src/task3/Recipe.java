@@ -1,19 +1,22 @@
 package task3;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Recipe {
-    private Map<Ingredient, Double> ingredients;
+    private final Map<Ingredient, Double> ingredients;
 
-    public Recipe(Map<Ingredient, Double> ingredients) {
-        this.ingredients = ingredients;
+    public Recipe() {
+        ingredients = new HashMap<>();
     }
 
-    public void addIngredient(Ingredient ingredient, Double weight){
+    public void addIngredient(Ingredient ingredient, Double weight) {
         ingredients.put(ingredient, weight);
     }
 
-    public Map<Ingredient, Double> getIngredients() {
-        return ingredients;
+    public void accept(IngredientVisitor visitor) {
+        for (Map.Entry<Ingredient, Double> entry : ingredients.entrySet()) {
+            entry.getKey().accept(visitor, entry.getValue());
+        }
     }
 }
