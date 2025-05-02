@@ -1,10 +1,7 @@
 package task2;
 
-import task1.*;
 import task1.Number;
-
-import java.util.ArrayList;
-import java.util.List;
+import task1.*;
 
 public class FoldConstants implements Transformer {
     @Override
@@ -21,16 +18,16 @@ public class FoldConstants implements Transformer {
             double r = ((Number) right).value();
             double result;
             switch (binOp.operation()) {
-                case '+':
+                case BinaryOperation.PLUS:
                     result = l + r;
                     break;
-                case '-':
+                case BinaryOperation.MINUS:
                     result = l - r;
                     break;
-                case '*':
+                case BinaryOperation.MUL:
                     result = l * r;
                     break;
-                case '/':
+                case BinaryOperation.DIV:
                     result = l / r;
                     break;
                 default:
@@ -44,11 +41,13 @@ public class FoldConstants implements Transformer {
     @Override
     public Expression transformFunctionCall(FunctionCall funcCall) {
         Expression arg = funcCall.arg().transform(this);
-        if (arg instanceof Number){
+        if (arg instanceof Number) {
             double value = ((Number) arg).value();
-            switch (funcCall.name()){
-                case "sqrt": return new Number(Math.sqrt(value));
-                case "abs": return new Number(Math.abs(value));
+            switch (funcCall.name()) {
+                case "sqrt":
+                    return new Number(Math.sqrt(value));
+                case "abs":
+                    return new Number(Math.abs(value));
                 default:
                     throw new UnsupportedOperationException("Неподдерживаемая функция: " + funcCall.name());
             }

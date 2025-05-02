@@ -1,5 +1,6 @@
 import task1.*;
 import task1.Number;
+import task2.FoldConstants;
 
 
 public class Main {
@@ -20,20 +21,33 @@ public class Main {
 //        Expression callAbs = new FunctionCall("abs", mult);
 //        System.out.println(callAbs.evaluate());
 
-        //Исходные выражения
-        Number n32 = new Number(32.0);
-        Number n16 = new Number(16.0);
-        BinaryOperation minus = new BinaryOperation(n32, BinaryOperation.MINUS, n16);
-        FunctionCall callSqrt = new FunctionCall("sqrt", minus);
-        Variable var = new Variable("var", 2.0);
-        BinaryOperation mult = new BinaryOperation(var, BinaryOperation.MUL, callSqrt);
-        FunctionCall callAbs = new FunctionCall("abs", mult);
+//        //Исходные выражения
+//        Number n32 = new Number(32.0);
+//        Number n16 = new Number(16.0);
+//        BinaryOperation minus = new BinaryOperation(n32, BinaryOperation.MINUS, n16);
+//        FunctionCall callSqrt = new FunctionCall("sqrt", minus);
+//        Variable var = new Variable("var", 2.0);
+//        BinaryOperation mult = new BinaryOperation(var, BinaryOperation.MUL, callSqrt);
+//        FunctionCall callAbs = new FunctionCall("abs", mult);
+//
+//        //Копирование дерева выражений
+//        CopySyntaxTree CST = new CopySyntaxTree();
+//        Expression newExpr = callAbs.transform(CST);
+//
+//        //Пример вычисления нового выражения
+//        System.out.println("Результат: " + newExpr.evaluate());
 
-        //Копирование дерева выражений
-        CopySyntaxTree CST = new CopySyntaxTree();
-        Expression newExpr = callAbs.transform(CST);
+        Expression n32 = new Number(32.0);
+        Expression n16 = new Number(16.0);
+        Expression minus = new BinaryOperation(n32, BinaryOperation.MINUS, n16);
+        Expression callSqrt = new FunctionCall("sqrt", minus);
+        Expression var = new Variable("var", 2.0);
+        Expression mult = new BinaryOperation(var, BinaryOperation.MUL, callSqrt);
+        Expression callAbs = new FunctionCall("abs", mult);
 
-        //Пример вычисления нового выражения
-        System.out.println("Результат: " + newExpr.evaluate());
+        FoldConstants fc = new FoldConstants();
+        Expression newExpr = callAbs.transform(fc);
+
+        System.out.println(newExpr.evaluate());
     }
 }
