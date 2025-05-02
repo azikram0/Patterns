@@ -11,7 +11,20 @@ public class FoldConstants implements Transformer {
 
     @Override
     public Expression transformBinaryOperation(BinaryOperation binOp) {
-        return null;
+        Expression left = binOp.left().transform(this);
+        Expression right = binOp.right().transform(this);
+        double l = ((Number) left).value();
+        double r = ((Number) right).value();
+        double result;
+        switch (binOp.operation()){
+            case '+': result = l + r; break;
+            case '-': result = l - r; break;
+            case '*': result = l * r; break;
+            case '/': result = l / r; break;
+            default:
+                throw new UnsupportedOperationException("Неизвестный оператор: " + (char) binOp.operation());
+        }
+        return new Number(result);
     }
 
     @Override

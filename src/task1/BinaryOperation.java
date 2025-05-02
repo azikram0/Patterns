@@ -45,7 +45,7 @@ public class BinaryOperation extends Expression {
             case MUL:
                 return l * r;
             default:
-                throw new UnsupportedOperationException("Unknown operator: " + (char) op);
+                throw new UnsupportedOperationException("Неизвестный оператор: " + (char) op);
         }
     }
 
