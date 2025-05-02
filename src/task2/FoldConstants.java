@@ -16,23 +16,13 @@ public class FoldConstants implements Transformer {
         if (left instanceof Number && right instanceof Number) {
             double l = ((Number) left).value();
             double r = ((Number) right).value();
-            double result;
-            switch (binOp.operation()) {
-                case BinaryOperation.PLUS:
-                    result = l + r;
-                    break;
-                case BinaryOperation.MINUS:
-                    result = l - r;
-                    break;
-                case BinaryOperation.MUL:
-                    result = l * r;
-                    break;
-                case BinaryOperation.DIV:
-                    result = l / r;
-                    break;
-                default:
-                    throw new UnsupportedOperationException("Неизвестный оператор: " + (char) binOp.operation());
-            }
+            double result = switch (binOp.operation()) {
+                case BinaryOperation.PLUS -> l + r;
+                case BinaryOperation.MINUS -> l - r;
+                case BinaryOperation.MUL -> l * r;
+                case BinaryOperation.DIV -> l / r;
+                default -> throw new UnsupportedOperationException("Неизвестный оператор: " + (char) binOp.operation());
+            };
             return new Number(result);
         }
         return new BinaryOperation(left, binOp.operation(), right);
@@ -43,14 +33,11 @@ public class FoldConstants implements Transformer {
         Expression arg = funcCall.arg().transform(this);
         if (arg instanceof Number) {
             double value = ((Number) arg).value();
-            switch (funcCall.name()) {
-                case "sqrt":
-                    return new Number(Math.sqrt(value));
-                case "abs":
-                    return new Number(Math.abs(value));
-                default:
-                    throw new UnsupportedOperationException("Неподдерживаемая функция: " + funcCall.name());
-            }
+            return switch (funcCall.name()) {
+                case "sqrt" -> new Number(Math.sqrt(value));
+                case "abs" -> new Number(Math.abs(value));
+                default -> throw new UnsupportedOperationException("Неподдерживаемая функция: " + funcCall.name());
+            };
         }
         return new FunctionCall(funcCall.name(), arg);
     }
