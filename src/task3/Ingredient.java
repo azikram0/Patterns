@@ -8,8 +8,14 @@ public abstract class Ingredient {
     private final double carbsPer100g;
     private final double pricePer100g;
 
-    public Ingredient(String name, double caloriesPer100g, double proteinsPer100g,
-                      double fatsPer100g, double carbsPer100g, double pricePer100g) {
+    public Ingredient(
+            String name,
+            double caloriesPer100g,
+            double proteinsPer100g,
+            double fatsPer100g,
+            double carbsPer100g,
+            double pricePer100g
+    ) {
         this.name = name;
         this.caloriesPer100g = caloriesPer100g;
         this.proteinsPer100g = proteinsPer100g;
@@ -22,23 +28,27 @@ public abstract class Ingredient {
         return name;
     }
 
-    public double getCaloriesPer100g() {
-        return caloriesPer100g;
+    public double getCalories(double weight) {
+        return (caloriesPer100g / 100.0) * weight;
     }
 
-    public double getProteinsPer100g() {
-        return proteinsPer100g;
+    public double getProteins(double weight) {
+        return (proteinsPer100g / 100.0) * weight;
     }
 
-    public double getFatsPer100g() {
-        return fatsPer100g;
+    public double getFats(double weight) {
+        return (fatsPer100g / 100.0) * weight;
     }
 
-    public double getCarbsPer100g() {
-        return carbsPer100g;
+    public double getCarbs(double weight) {
+        return (carbsPer100g / 100.0) * weight;
     }
 
-    public double getPricePer100g() {
-        return pricePer100g;
+    public double getPrice(double weight) {
+        return (pricePer100g / 100.0) * weight;
+    }
+
+    public void accept(IngredientVisitor visitor, Double value) {
+        visitor.visit(this, value);
     }
 }
