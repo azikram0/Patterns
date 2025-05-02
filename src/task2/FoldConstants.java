@@ -6,7 +6,7 @@ import task1.Number;
 public class FoldConstants implements Transformer {
     @Override
     public Expression transformNumber(Number number) {
-        return null;
+        return new Number(number.value());
     }
 
     @Override
@@ -21,6 +21,6 @@ public class FoldConstants implements Transformer {
 
     @Override
     public Expression transformVariable(Variable variable) {
-        return null;
+        return new Variable(variable.name(), variable.value());
     }
 }
