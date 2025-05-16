@@ -1,15 +1,24 @@
 package task1;
 
+import exception.FunctionNotSqrtOrAbs;
+import exception.NullArgument;
+
 public class FunctionCall extends Expression {
     private final String name;
     private final Expression arg;
 
     public FunctionCall(String name, Expression arg) {
-        if (arg == null) {
-            throw new IllegalArgumentException("Аргумент не может быть нулевым");
-        }
-        if (!"sqrt".equals(name) && !"abs".equals(name)) {
-            throw new IllegalArgumentException("Поддерживаются только 'sqrt' и 'abs'");
+        try {
+            if (arg == null) {
+                throw new NullArgument("Аргумент не может быть нулевым");
+            }
+            if (!"sqrt".equals(name) && !"abs".equals(name)) {
+                throw new FunctionNotSqrtOrAbs("Поддерживаются только 'sqrt' и 'abs'");
+            }
+        } catch (NullArgument e) {
+            System.out.println(e.getMessage());
+        } catch (FunctionNotSqrtOrAbs e) {
+            System.out.println(e.getMessage());
         }
         this.name = name;
         this.arg = arg;
@@ -26,11 +35,17 @@ public class FunctionCall extends Expression {
     @Override
     public double evaluate() {
         double value = arg.evaluate();
-        return switch (name) {
-            case "sqrt" -> Math.sqrt(value);
-            case "abs" -> Math.abs(value);
-            default -> throw new UnsupportedOperationException("Неподдерживаемая функция: " + name);
-        };
+        double result = 0;
+        try {
+            result = switch (name) {
+                case "sqrt" -> Math.sqrt(value);
+                case "abs" -> Math.abs(value);
+                default -> throw new FunctionNotSqrtOrAbs("Неподдерживаемая функция: " + name);
+            };
+        } catch (FunctionNotSqrtOrAbs e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
     }
 
     @Override

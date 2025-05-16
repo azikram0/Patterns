@@ -1,5 +1,7 @@
 package task2;
 
+import exception.FunctionNotSqrtOrAbs;
+import exception.UnsupportedOperation;
 import task1.Number;
 import task1.*;
 
@@ -16,13 +18,18 @@ public class FoldConstants implements Transformer {
         if (left instanceof Number && right instanceof Number) {
             double l = ((Number) left).value();
             double r = ((Number) right).value();
-            double result = switch (binOp.operation()) {
-                case BinaryOperation.PLUS -> l + r;
-                case BinaryOperation.MINUS -> l - r;
-                case BinaryOperation.MUL -> l * r;
-                case BinaryOperation.DIV -> l / r;
-                default -> throw new UnsupportedOperationException("Неизвестный оператор: " + (char) binOp.operation());
-            };
+            double result = 0;
+            try {
+                result = switch (binOp.operation()) {
+                    case BinaryOperation.PLUS -> l + r;
+                    case BinaryOperation.MINUS -> l - r;
+                    case BinaryOperation.MUL -> l * r;
+                    case BinaryOperation.DIV -> l / r;
+                    default -> throw new UnsupportedOperation("Неизвестный оператор: " + (char) binOp.operation());
+                };
+            } catch (UnsupportedOperation e) {
+                System.out.println(e.getMessage());;
+            }
             return new Number(result);
         }
         return new BinaryOperation(left, binOp.operation(), right);
@@ -33,11 +40,17 @@ public class FoldConstants implements Transformer {
         Expression arg = funcCall.arg().transform(this);
         if (arg instanceof Number) {
             double value = ((Number) arg).value();
-            return switch (funcCall.name()) {
-                case "sqrt" -> new Number(Math.sqrt(value));
-                case "abs" -> new Number(Math.abs(value));
-                default -> throw new UnsupportedOperationException("Неподдерживаемая функция: " + funcCall.name());
-            };
+            Expression result = new Number(0.0);
+            try {
+                result = switch (funcCall.name()) {
+                    case "sqrt" -> new Number(Math.sqrt(value));
+                    case "abs" -> new Number(Math.abs(value));
+                    default -> throw new FunctionNotSqrtOrAbs("Неподдерживаемая функция: " + funcCall.name());
+                };
+            } catch (FunctionNotSqrtOrAbs e) {
+                System.out.println(e.getMessage());
+            }
+            return result;
         }
         return new FunctionCall(funcCall.name(), arg);
     }
