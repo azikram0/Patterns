@@ -4,7 +4,7 @@ import task2.FoldConstants;
 import task3.*;
 
 public class Test {
-    public void example0(){
+    public void checkingTheHierarchyOperation(){
         //Пример 1: 1.234 / -1.234
         Expression e1 = new Number(1.234);
         Expression e2 = new Number(-1.234);
@@ -22,7 +22,7 @@ public class Test {
         System.out.println(callAbs.evaluate());
     }
 
-    public void example1(){
+    public void attemptToCopyExpressionTree(){
         //Исходные выражения
         Number n32 = new Number(32.0);
         Number n16 = new Number(16.0);
@@ -40,7 +40,7 @@ public class Test {
         System.out.println("Результат: " + newExpr.evaluate());
     }
 
-    public void example2(){
+    public void attemptToCollapseExpressionTree(){
         Expression n32 = new Number(32.0);
         Expression n16 = new Number(16.0);
         Expression minus = new BinaryOperation(n32, BinaryOperation.MINUS, n16);
@@ -55,7 +55,7 @@ public class Test {
         System.out.println(newExpr.evaluate());
     }
 
-    public void example3(){
+    public void checkingTheWorkOfYourOwnVisior(){
         Recipe recipe = new Recipe();
         recipe.addIngredient(new Champignon(), 500.0);
         recipe.addIngredient(new Shrimp(), 100.0);
